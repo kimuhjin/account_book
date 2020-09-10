@@ -5,13 +5,13 @@ import styled from "styled-components";
 function App() {
   return (
     <Container>
-      <Box>가계부 웹 프로젝트</Box>
+      <TitleBox>가계부 웹 프로젝트</TitleBox>
     </Container>
   );
 }
 
 export default App;
-const Box = styled.div`
+const TitleBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
