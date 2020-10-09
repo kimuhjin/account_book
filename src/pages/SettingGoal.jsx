@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import AppHeader from "../Components/AppHeader";
@@ -14,24 +15,24 @@ function SettingGoal() {
         </UserName>
         <TextArea>갖고싶었던 것 말만 하세요!</TextArea>
         <RecommendGoalArea>
-          <RecommendGoal>
+          <RecommendGoal to="/SettingGoalDetail">
             <GoalTitle>비행기 티켓</GoalTitle>
             <GoalImage />
             <GoalTitle>₩ 550,000</GoalTitle>
           </RecommendGoal>
-          <RecommendGoal>
+          <RecommendGoal to="/SettingGoalDetail">
             <GoalTitle>아티스트 엘범</GoalTitle>
             <GoalImage />
             <GoalTitle>₩ 50,000</GoalTitle>
           </RecommendGoal>
         </RecommendGoalArea>
-        <GoalCategory>
+        <GoalCategory to="/SettingGoalDetail">
           <GoalTitle>스포츠</GoalTitle>
         </GoalCategory>
-        <GoalCategory>
+        <GoalCategory to="/SettingGoalDetail">
           <GoalTitle>음악</GoalTitle>
         </GoalCategory>
-        <GoalCategory>
+        <GoalCategory to="/SettingGoalDetail">
           <GoalTitle>여행</GoalTitle>
         </GoalCategory>
       </Container>
@@ -49,7 +50,9 @@ const GoalTitle = styled.div`
   color: #666e78;
   font-weight: bold;
 `;
-const GoalCategory = styled.div`
+const GoalCategory = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -74,7 +77,9 @@ const RecommendGoalArea = styled.div`
   }
   -ms-overflow-style: none;
 `;
-const RecommendGoal = styled.div`
+const RecommendGoal = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
