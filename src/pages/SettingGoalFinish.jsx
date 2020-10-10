@@ -37,6 +37,7 @@ to {
     opacity:1;
 }
 `;
+
 const FinishButton = styled(Link)`
   text-decoration: none;
   margin-top: 20px;
