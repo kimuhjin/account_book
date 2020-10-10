@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-function Header() {
-  useEffect(() => {
-    setLocation(window.location.pathname);
-  }, []);
-  setInterval(() => {
-    setLocation(window.location.pathname);
-  }, 200);
-
-  const [Location, setLocation] = useState("");
-
+function Header({ Location }) {
   let clockTime;
   function clock() {
     var date = new Date();

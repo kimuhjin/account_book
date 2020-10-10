@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import AppHeader from "../Components/AppHeader";
 
@@ -41,6 +41,14 @@ function SettingGoal() {
 }
 
 export default SettingGoal;
+const PopUp = keyframes`
+from{
+    opacity:0;
+}
+to {
+    opacity:1;
+}
+`;
 const GoalImage = styled.div`
   width: 90px;
   height: 90px;
@@ -122,4 +130,5 @@ const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 24px 16px;
+  /* animation: ${PopUp} 1.5s backwards; */
 `;

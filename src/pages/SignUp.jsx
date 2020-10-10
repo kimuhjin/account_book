@@ -1,10 +1,12 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import AppHeader from "../Components/AppHeader";
 function SignUp() {
   return (
     <Fragment>
       <Container>
+        <AppHeader TitleText={"회원가입"} />
         <TitleArea>
           <TopText>
             워니에 <br />
@@ -81,10 +83,11 @@ const TopText = styled.div`
 `;
 
 const TitleArea = styled.div`
+  margin-top: 15px;
   margin-bottom: 50px;
 `;
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

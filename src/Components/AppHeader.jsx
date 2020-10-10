@@ -15,13 +15,14 @@ function AppHeader({ TitleText }) {
           }}
         />
         <Title>{TitleText}</Title>
-        <Blank />
+        <Blank>&nbsp;</Blank>
       </Header>
     </Fragment>
   );
 }
 
 export default AppHeader;
+
 const Title = styled.div`
   margin-top: 3px;
   font-size: 20px;
@@ -29,6 +30,7 @@ const Title = styled.div`
 `;
 const Blank = styled.div`
   width: 30px;
+  height: 30px;
 `;
 const Header = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import AppHeader from "../Components/AppHeader";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -10,7 +10,7 @@ function SettingGoalDetail() {
       <Container>
         <AppHeader TitleText={"목표설정"} />
         <SetImageArea>
-          <PlusIcon></PlusIcon>
+          <PlusIcon />
           <ImageText>이미지 추가</ImageText>
         </SetImageArea>
         <GoalInput placeholder="아티스트 앨범" />
@@ -36,6 +36,14 @@ function SettingGoalDetail() {
 }
 
 export default SettingGoalDetail;
+const PopUp = keyframes`
+from{
+    opacity:0;
+}
+to {
+    opacity:1;
+}
+`;
 const FinishButton = styled(Link)`
   text-decoration: none;
   margin-top: 10px;
@@ -201,4 +209,5 @@ const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 24px 16px;
+  /* animation: ${PopUp} 1.5s backwards; */
 `;

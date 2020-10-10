@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 function SettingGoalFinish() {
   //   const history = useHistory();
@@ -29,6 +29,14 @@ function SettingGoalFinish() {
 }
 
 export default SettingGoalFinish;
+const PopUp = keyframes`
+from{
+    opacity:0;
+}
+to {
+    opacity:1;
+}
+`;
 const FinishButton = styled(Link)`
   text-decoration: none;
   margin-top: 20px;
@@ -57,9 +65,9 @@ const TextArea = styled.div`
   margin-top: 10px;
   width: 100%;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   .bottom {
-    margin-top: 40px;
+    margin-top: 35px;
   }
 `;
 const UserName = styled.div`
@@ -86,6 +94,7 @@ const Container = styled.div`
   background-image: linear-gradient(0deg, rgb(72, 177, 191), rgb(6, 190, 182));
   box-sizing: border-box;
   padding: 24px 16px;
+  animation: ${PopUp} 1.5s backwards;
 `;
 
 const ImageArea = styled.div`

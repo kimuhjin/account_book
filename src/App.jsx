@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BrowserRouter, Switch } from "react-router-dom";
 import Routes from "./Routes";
 import IPhoneImage from "./IPhoneFrame/IPhone6.png";
 import { Link } from "react-router-dom";
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import SiteMap from "./pages/SiteMap";
 function App() {
-  // basename={process.env.PUBLIC_URL}
-  // {window.location.pathname === "/" ? null : <Header>123</Header>}
+  useEffect(() => {
+    setLocation(window.location.pathname);
+  }, []);
+  setInterval(() => {
+    setLocation(window.location.pathname);
+  }, 200);
+  const [Location, setLocation] = useState("");
   return (
     <BrowserRouter>
       <Container>
         <IPhoneFace>
           <Screen>
-            <Header />
+            <Header Location={Location} />
             <View>
               <Switch>
                 <Routes />
               </Switch>
+              <Footer Location={Location} />
             </View>
           </Screen>
           <HomeButton to="/" />
         </IPhoneFace>
+        <SiteMap />
       </Container>
     </BrowserRouter>
   );
@@ -79,6 +88,7 @@ const IPhoneFace = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
   align-items: center;
   height: 800px;
   /* border: 1px solid red; */
