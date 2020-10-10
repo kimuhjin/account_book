@@ -7,9 +7,7 @@ function AppHeader({ TitleText }) {
   return (
     <Fragment>
       <Header>
-        <RiArrowLeftSLine
-          size={30}
-          style={{ color: "#666E78", cursor: "pointer" }}
+        <Arrow
           onClick={() => {
             history.goBack();
           }}
@@ -22,6 +20,16 @@ function AppHeader({ TitleText }) {
 }
 
 export default AppHeader;
+const Arrow = styled(RiArrowLeftSLine)`
+  /* position: fixed; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  color: #666e78;
+  cursor: pointer;
+`;
 
 const Title = styled.div`
   margin-top: 3px;
@@ -33,9 +41,12 @@ const Blank = styled.div`
   height: 30px;
 `;
 const Header = styled.div`
+  position: absolute;
+  top: 20px;
+  background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 30px;
+  height: 40px;
   width: 100%;
 `;

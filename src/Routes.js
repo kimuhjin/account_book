@@ -11,6 +11,8 @@ import SettingGoalDetail from "./pages/SettingGoalDetail";
 import SettingGoalFinish from "./pages/SettingGoalFinish";
 import MainPage from "./pages/MainPage";
 import EditProfile from "./pages/EditProfile";
+import Goal from "./pages/Goal";
+import GoalDetail from "./pages/GoalDetail";
 
 function Routes() {
   return (
@@ -25,6 +27,8 @@ function Routes() {
       <Route exact path="/SettingGoalFinish" component={SettingGoalFinish} />
       <Route exact path="/MainPage" component={MainPage} />
       <Route exact path="/EditProfile" component={EditProfile} />
+      <Route exact path="/Goal" component={Goal} />
+      <Route exact path="/GoalDetail" component={GoalDetail} />
     </Fragment>
   );
 }

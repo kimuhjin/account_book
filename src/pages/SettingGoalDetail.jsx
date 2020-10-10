@@ -201,7 +201,8 @@ const SetImageArea = styled.div`
   border-radius: 50%;
 `;
 const Container = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

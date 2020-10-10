@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 import AppHeader from "../Components/AppHeader";
-
+import ArtistIcon from "../Icons/아티스트.png";
+import AirplaneIcon from "../Icons/비행기티켓.png";
+import Airplane_Thumb from "../Icons/비행기티켓_Thumb.png";
+import Music_Thumb from "../Icons/음악_Thumb.png";
+import Sport_Thumb from "../Icons/스포츠_Thumb.png";
 function SettingGoal() {
   return (
     <Fragment>
@@ -17,23 +21,26 @@ function SettingGoal() {
         <RecommendGoalArea>
           <RecommendGoal to="/SettingGoalDetail">
             <GoalTitle>비행기 티켓</GoalTitle>
-            <GoalImage />
+            <GoalIcon icon={AirplaneIcon} />
             <GoalTitle>₩ 550,000</GoalTitle>
           </RecommendGoal>
           <RecommendGoal to="/SettingGoalDetail">
             <GoalTitle>아티스트 엘범</GoalTitle>
-            <GoalImage />
+            <GoalIcon icon={ArtistIcon} />
             <GoalTitle>₩ 50,000</GoalTitle>
           </RecommendGoal>
         </RecommendGoalArea>
         <GoalCategory to="/SettingGoalDetail">
           <GoalTitle>스포츠</GoalTitle>
+          <GoalCategoryIcon icon={Sport_Thumb} />
         </GoalCategory>
         <GoalCategory to="/SettingGoalDetail">
           <GoalTitle>음악</GoalTitle>
+          <GoalCategoryIcon icon={Music_Thumb} />
         </GoalCategory>
         <GoalCategory to="/SettingGoalDetail">
           <GoalTitle>여행</GoalTitle>
+          <GoalCategoryIcon icon={Airplane_Thumb} />
         </GoalCategory>
       </Container>
     </Fragment>
@@ -49,9 +56,21 @@ to {
     opacity:1;
 }
 `;
-const GoalImage = styled.div`
-  width: 90px;
-  height: 90px;
+const GoalCategoryIcon = styled.div`
+  width: 24px;
+  height: 32px;
+  background-image: url(${(props) => props.icon});
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+const GoalIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  background-image: url(${(props) => props.icon});
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 const GoalTitle = styled.div`
   font-size: 20px;
@@ -62,7 +81,7 @@ const GoalCategory = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-top: 15px;
   width: 100%;
@@ -122,7 +141,8 @@ const UserName = styled.div`
   }
 `;
 const Container = styled.div`
-  margin-top: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

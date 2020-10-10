@@ -5,22 +5,23 @@ import CalIcon from "../Icons/달력.png";
 import SaveIcon from "../Icons/저금.png";
 import AllIcon from "../Icons/전체보기.png";
 import AccountIcon from "../Icons/계좌.png";
+import { Link } from "react-router-dom";
 function Footer({ Location }) {
   return (
     <Fragment>
       <Container location={Location}>
-        <홈></홈>
-        <저금></저금>
-        <계좌></계좌>
-        <달력></달력>
-        <전체보기></전체보기>
+        <Home to="MainPage" />
+        <Save />
+        <Account />
+        <Cal />
+        <All />
       </Container>
     </Fragment>
   );
 }
 
 export default Footer;
-const 홈 = styled.div`
+const Home = styled(Link)`
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -29,7 +30,7 @@ const 홈 = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
-const 계좌 = styled.div`
+const Account = styled(Link)`
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -38,7 +39,7 @@ const 계좌 = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
-const 달력 = styled.div`
+const Cal = styled(Link)`
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -47,7 +48,7 @@ const 달력 = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
-const 저금 = styled.div`
+const Save = styled(Link)`
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -56,7 +57,7 @@ const 저금 = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
-const 전체보기 = styled.div`
+const All = styled(Link)`
   cursor: pointer;
   width: 24px;
   height: 24px;

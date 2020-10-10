@@ -87,11 +87,11 @@ const TitleArea = styled.div`
   margin-bottom: 50px;
 `;
 const Container = styled.div`
-  margin-top: 10px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   box-sizing: border-box;
   padding: 24px 16px;
