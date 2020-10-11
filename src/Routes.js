@@ -17,9 +17,9 @@ import GoalDetail from "./pages/GoalDetail";
 function Routes() {
   return (
     <Fragment>
-      <Route exact path="/OpenApp" component={OpenApp} />
-
       <Route exact path="/" component={HomeScreen} />
+      <Route exact path="/OpenApp" component={OpenApp} />
+      <Route exact path="/account_book/" component={HomeScreen} />
       <Route exact path="/Login" component={Login} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route exact path="/SettingGoal" component={SettingGoal} />

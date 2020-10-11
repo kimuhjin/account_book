@@ -1,8 +1,24 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AppHeader from "../Components/AppHeader";
+import { useHistory } from "react-router-dom";
 function SignUp() {
+  const [NickName, setNickName] = useState("");
+  const [Id, setId] = useState("");
+  const [PassWord, setPassWord] = useState("");
+  const [CheckPassWord, setCheckPassWord] = useState("");
+  const history = useHistory();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (PassWord === CheckPassWord) {
+      let IdValue = { Id: Id, NickName: NickName, PassWord: PassWord };
+      window.localStorage.setItem("UserValue", JSON.stringify(IdValue));
+      history.push("/Login");
+    } else {
+      alert("패스워드를 확인해 주세요.");
+    }
+  };
   return (
     <Fragment>
       <Container>
@@ -20,17 +36,28 @@ function SignUp() {
         <InputArea
           placeholder="사용할 닉네임을 설정해주세요."
           type="id"
+          value={NickName}
+          onChange={(e) => setNickName(e.target.value)}
         ></InputArea>
-        <InputArea placeholder="ID를 입력해주세요." type="id"></InputArea>
+        <InputArea
+          placeholder="ID를 입력해주세요."
+          type="id"
+          value={Id}
+          onChange={(e) => setId(e.target.value)}
+        ></InputArea>
         <InputArea
           placeholder="Password를 설정해주세요."
           type="password"
+          value={PassWord}
+          onChange={(e) => setPassWord(e.target.value)}
         ></InputArea>
         <InputArea
           placeholder="Password를 한번 더 입력하세요."
           type="password"
+          value={CheckPassWord}
+          onChange={(e) => setCheckPassWord(e.target.value)}
         ></InputArea>
-        <SignUpButton to="/Login">회원가입</SignUpButton>
+        <SignUpButton onClick={onSubmit}>회원가입</SignUpButton>
       </Container>
     </Fragment>
   );

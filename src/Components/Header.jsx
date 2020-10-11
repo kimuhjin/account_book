@@ -28,7 +28,11 @@ const HeaderArea = styled.div`
   width: 100%;
   height: 20px;
   background-color: ${(props) =>
-    props.location === "/" ? "transparent" : "lightgray"};
+    props.location === "/" ||
+    props.location === "/account_book/" ||
+    props.location === "/account_book"
+      ? "transparent"
+      : "#d3d3d3"};
   font-size: 11px;
   font-weight: bold;
   color: #fff;

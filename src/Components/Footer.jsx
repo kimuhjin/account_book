@@ -11,10 +11,10 @@ function Footer({ Location }) {
     <Fragment>
       <Container location={Location}>
         <Home to="MainPage" />
-        <Save />
-        <Account />
-        <Cal />
-        <All />
+        <Save to="MainPage" />
+        <Account to="MainPage" />
+        <Cal to="MainPage" />
+        <All to="MainPage" />
       </Container>
     </Fragment>
   );
@@ -82,6 +82,8 @@ const Container = styled.div`
 
   display: ${(props) =>
     props.location === "/" ||
+    props.location === "/account_book/" ||
+    props.location === "/account_book" ||
     props.location === "/OpenApp" ||
     props.location === "/SettingGoalFinish" ||
     props.location === "/Login" ||

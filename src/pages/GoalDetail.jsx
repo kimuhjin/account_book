@@ -23,7 +23,7 @@ function GoalDetail() {
             <div className="divide">/30,000원</div>
           </Wage>
         </MainArea>
-        <ScrollWraaper>
+        <ScrollWrapper>
           <GoalTitleArea>
             <GTHeader>
               목표타이틀
@@ -49,7 +49,7 @@ function GoalDetail() {
             <UsedBox />
             <UsedBox />
           </UsedArea>
-        </ScrollWraaper>
+        </ScrollWrapper>
       </Container>
     </Fragment>
   );
@@ -57,7 +57,7 @@ function GoalDetail() {
 
 export default GoalDetail;
 
-const ScrollWraaper = styled.div`
+const ScrollWrapper = styled.div`
   width: 100%;
   height: 212px;
   overflow: scroll;

@@ -1,11 +1,27 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { AiOutlinePlusCircle, AiFillCheckCircle } from "react-icons/ai";
+import React, { Fragment, useState } from "react";
 
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { AiOutlinePlusCircle, AiFillCheckCircle } from "react-icons/ai";
 import AppHeader from "../Components/AppHeader";
 
 function EditProfile() {
+  const history = useHistory();
+  const [NickName, setNickName] = useState("");
+  const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
+  const UserName = getUserData.NickName;
+  const UserId = getUserData.Id;
+  const OnSubmit = (e) => {
+    if (NickName !== "") {
+      e.preventDefault();
+      getUserData.NickName = NickName;
+      window.localStorage.setItem("UserValue", JSON.stringify(getUserData));
+      alert("수정되었습니다.");
+      history.push("/MainPage");
+    } else {
+      alert("변경사항이 없습니다.");
+    }
+  };
   return (
     <Fragment>
       <Container>
@@ -15,22 +31,26 @@ function EditProfile() {
         </UserIcon>
         <InfoArea>
           <Title>닉네임</Title>
-          <InputArea placeholder="김워니" />
+          <InputArea
+            placeholder={UserName}
+            value={NickName}
+            onChange={(e) => setNickName(e.target.value)}
+          />
           <CheckValue>
             <CheckIcon />
             <div className="title">사용할 수 있는 닉네임입니다.</div>
           </CheckValue>
           <Title>ID</Title>
-          <IdValue>abc1234</IdValue>
+          <IdValue>{UserId}</IdValue>
         </InfoArea>
-        <EditButton>수정</EditButton>
+        <EditButton onClick={OnSubmit}>수정</EditButton>
       </Container>
     </Fragment>
   );
 }
 
 export default EditProfile;
-const EditButton = styled(Link)`
+const EditButton = styled.div`
   text-decoration: none;
   margin-top: 50px;
   cursor: pointer;

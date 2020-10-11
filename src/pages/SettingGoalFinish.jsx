@@ -2,18 +2,16 @@ import React, { Fragment } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 function SettingGoalFinish() {
-  //   const history = useHistory();
-  //     setTimeout(() => {
-  //       history.push("/MainPage");
-  //     }, 2000);
+  const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
+  const UserName = getUserData.NickName;
   return (
     <Fragment>
       <Container>
         <ImageArea />
-        <UserName>
-          김워니
+        <UserNameArea>
+          {UserName}
           <div className="sla">님</div>
-        </UserName>
+        </UserNameArea>
         <TextArea>
           목표설정이 완료되었습니다!
           <div className="bottom">
@@ -71,7 +69,7 @@ const TextArea = styled.div`
     margin-top: 35px;
   }
 `;
-const UserName = styled.div`
+const UserNameArea = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;

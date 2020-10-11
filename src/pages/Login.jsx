@@ -1,14 +1,50 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { UserInfo } from "../_actions/user_actions";
 function Login() {
+  const [Id, setId] = useState("");
+  const [PassWord, setPassWord] = useState("");
+  const UserCheck = JSON.parse(window.localStorage.getItem("UserValue"));
+  const history = useHistory();
+  const dispatch = useDispatch();
+  console.log(UserCheck);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (Id === UserCheck.Id && PassWord === UserCheck.PassWord) {
+      dispatch(UserInfo());
+      const CheckGoalExist = JSON.parse(
+        window.localStorage.getItem("GoalData")
+      );
+      if (CheckGoalExist === null) {
+        // CheckGoalExist이 False라면 목표설정으로 이동
+        history.push("/SettingGoal");
+      } else if (CheckGoalExist !== null) {
+        // CheckGoalExist이 True라면 메인페이지로 이동
+        history.push("/MainPage");
+      }
+    } else {
+      alert("아이디 혹은 비밀번호를 확인해주세요.");
+    }
+  };
   return (
     <Fragment>
       <Container>
         <UserIcon></UserIcon>
-        <InputArea placeholder="ID" type="id"></InputArea>
-        <InputArea placeholder="PASSWORD" type="password"></InputArea>
-        <LoginButton to="/SettingGoal">로그인</LoginButton>
+        <InputArea
+          placeholder="ID"
+          type="id"
+          value={Id}
+          onChange={(e) => setId(e.target.value)}
+        ></InputArea>
+        <InputArea
+          placeholder="PASSWORD"
+          type="password"
+          value={PassWord}
+          onChange={(e) => setPassWord(e.target.value)}
+        ></InputArea>
+        <LoginButton onClick={onSubmit}>로그인</LoginButton>
         <SignUpFind>
           <LinkButton to="/SignUp">회원가입</LinkButton>
           &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;

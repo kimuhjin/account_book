@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-
+import { useDispatch } from "react-redux";
+import { GoalTitle } from "../_actions/setGoal_actions";
 import AppHeader from "../Components/AppHeader";
 import ArtistIcon from "../Icons/아티스트.png";
 import AirplaneIcon from "../Icons/비행기티켓.png";
@@ -9,37 +10,47 @@ import Airplane_Thumb from "../Icons/비행기티켓_Thumb.png";
 import Music_Thumb from "../Icons/음악_Thumb.png";
 import Sport_Thumb from "../Icons/스포츠_Thumb.png";
 function SettingGoal() {
+  const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
+  const UserName = getUserData.NickName;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(GoalTitle(e.target.value));
+    history.push("/SettingGoalDetail");
+  };
   return (
     <Fragment>
       <Container>
         <AppHeader TitleText={"목표설정"} />
-        <UserName>
-          김워니
+        <UserNameArea>
+          {UserName}
           <div className="sla">님</div>
-        </UserName>
+        </UserNameArea>
+
         <TextArea>갖고싶었던 것 말만 하세요!</TextArea>
         <RecommendGoalArea>
-          <RecommendGoal to="/SettingGoalDetail">
-            <GoalTitle>비행기 티켓</GoalTitle>
+          <RecommendGoal value="비행기 티켓" onClick={onSubmit}>
+            <GoalTitleArea>비행기 티켓</GoalTitleArea>
             <GoalIcon icon={AirplaneIcon} />
-            <GoalTitle>₩ 550,000</GoalTitle>
+            <GoalTitleArea>₩ 550,000</GoalTitleArea>
           </RecommendGoal>
-          <RecommendGoal to="/SettingGoalDetail">
-            <GoalTitle>아티스트 엘범</GoalTitle>
+          <RecommendGoal value="아티스트 앨범" onClick={onSubmit}>
+            <GoalTitleArea>아티스트 엘범</GoalTitleArea>
             <GoalIcon icon={ArtistIcon} />
-            <GoalTitle>₩ 50,000</GoalTitle>
+            <GoalTitleArea>₩ 50,000</GoalTitleArea>
           </RecommendGoal>
         </RecommendGoalArea>
-        <GoalCategory to="/SettingGoalDetail">
-          <GoalTitle>스포츠</GoalTitle>
+        <GoalCategory value="스포츠" onClick={onSubmit}>
+          <GoalTitleArea>스포츠</GoalTitleArea>
           <GoalCategoryIcon icon={Sport_Thumb} />
         </GoalCategory>
-        <GoalCategory to="/SettingGoalDetail">
-          <GoalTitle>음악</GoalTitle>
+        <GoalCategory value="음악" onClick={onSubmit}>
+          <GoalTitleArea>음악</GoalTitleArea>
           <GoalCategoryIcon icon={Music_Thumb} />
         </GoalCategory>
-        <GoalCategory to="/SettingGoalDetail">
-          <GoalTitle>여행</GoalTitle>
+        <GoalCategory value="여행" onClick={onSubmit}>
+          <GoalTitleArea>여행</GoalTitleArea>
           <GoalCategoryIcon icon={Airplane_Thumb} />
         </GoalCategory>
       </Container>
@@ -57,6 +68,7 @@ to {
 }
 `;
 const GoalCategoryIcon = styled.div`
+  pointer-events: none;
   width: 24px;
   height: 32px;
   background-image: url(${(props) => props.icon});
@@ -65,6 +77,7 @@ const GoalCategoryIcon = styled.div`
   background-repeat: no-repeat;
 `;
 const GoalIcon = styled.div`
+  pointer-events: none;
   width: 80px;
   height: 80px;
   background-image: url(${(props) => props.icon});
@@ -72,12 +85,13 @@ const GoalIcon = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
-const GoalTitle = styled.div`
+const GoalTitleArea = styled.div`
+  pointer-events: none;
   font-size: 20px;
   color: #666e78;
   font-weight: bold;
 `;
-const GoalCategory = styled(Link)`
+const GoalCategory = styled.button`
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -104,7 +118,7 @@ const RecommendGoalArea = styled.div`
   }
   -ms-overflow-style: none;
 `;
-const RecommendGoal = styled(Link)`
+const RecommendGoal = styled.button`
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -127,7 +141,7 @@ const TextArea = styled.div`
   color: #666e78;
   font-size: 20px;
 `;
-const UserName = styled.div`
+const UserNameArea = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: flex-start;
