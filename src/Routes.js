@@ -28,7 +28,7 @@ function Routes() {
       <Route exact path="/MainPage" component={MainPage} />
       <Route exact path="/EditProfile" component={EditProfile} />
       <Route exact path="/Goal" component={Goal} />
-      <Route exact path="/GoalDetail" component={GoalDetail} />
+      <Route exact path="/GoalDetail/:Id" component={GoalDetail} />
     </Fragment>
   );
 }

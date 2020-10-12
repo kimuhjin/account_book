@@ -23,7 +23,6 @@ function SettingGoalDetail() {
     localStorage.getItem("SettingGoalImage")
   );
 
-  console.log(ImageSrc);
   const SetImage = () => {
     document.getElementById("file").addEventListener("change", (e) => {
       const file = e.target.files[0];
@@ -88,7 +87,6 @@ function SettingGoalDetail() {
       } else if (OriginData !== null) {
         // OriginData가 비어있지 않다면 OriginData와 GoalData를 배열에 담아 로컬스토리지에 저장
         const NewData = [...OriginData, GoalData];
-        console.log(NewData);
         window.localStorage.setItem("GoalData", JSON.stringify(NewData));
       }
       localStorage.setItem("SettingGoalImage", null);

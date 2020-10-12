@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { HiPlus } from "react-icons/hi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -40,14 +40,16 @@ function Goal() {
                 <ThreeDot />
               </ThreeDotButton>
             </CardTop>
-            <Wage>
-              6,000원
-              <div className="divide">/{v.GoalPrice.toLocaleString()}원</div>
-            </Wage>
-            <GoalInfoArea>
-              <GoalTitle>{v.GoalTitle}</GoalTitle>
-              <GoalCategory>카테고리</GoalCategory>
-            </GoalInfoArea>
+            <ClickableArea to={`/GoalDetail/:${v.Id}`}>
+              <Wage>
+                6,000원
+                <div className="divide">/{v.GoalPrice.toLocaleString()}원</div>
+              </Wage>
+              <GoalInfoArea>
+                <GoalTitle>{v.GoalTitle}</GoalTitle>
+                <GoalCategory>카테고리</GoalCategory>
+              </GoalInfoArea>
+            </ClickableArea>
           </GoalPaddingArea>
           <GoalSave>
             <SaveButton>저축하기</SaveButton>
@@ -81,7 +83,9 @@ function Goal() {
 }
 
 export default Goal;
-
+const ClickableArea = styled(Link)`
+  text-decoration: none;
+`;
 const ThreeDotButton = styled.button`
   outline: none;
   cursor: pointer;
@@ -175,6 +179,7 @@ const GoalArea = styled.div`
 `;
 
 const GoalCard = styled.div`
+  text-decoration: none;
   width: 100%;
   height: 210px;
   border-radius: 8px;

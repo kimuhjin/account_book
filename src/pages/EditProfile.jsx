@@ -168,6 +168,7 @@ const PlusIcon = styled(AiOutlinePlusCircle)`
   cursor: pointer;
   position: absolute;
   background-color: #fff;
+  padding: 0px;
   bottom: -10px;
   right: 0px;
   width: 24px;

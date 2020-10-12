@@ -9,7 +9,6 @@ function Login() {
   const UserCheck = JSON.parse(window.localStorage.getItem("UserValue"));
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(UserCheck);
   const onSubmit = (e) => {
     if (Id === UserCheck.Id && PassWord === UserCheck.PassWord) {
       dispatch(UserInfo());

@@ -17,26 +17,51 @@ function App() {
   const [Location, setLocation] = useState("");
   return (
     <BrowserRouter>
-      <Container>
-        <IPhoneFace>
-          <Screen>
-            <Header Location={Location} />
-            <View>
-              <Switch>
-                <Routes />
-              </Switch>
-              <Footer Location={Location} />
-            </View>
-          </Screen>
-          <HomeButton to="/" />
-        </IPhoneFace>
-        <SiteMap />
-      </Container>
+      <Wrapper>
+        <Container>
+          <IPhoneFace>
+            <Screen>
+              <Header Location={Location} />
+              <View>
+                <Switch>
+                  <Routes />
+                </Switch>
+                <Footer Location={Location} />
+              </View>
+            </Screen>
+            <HomeButton to="/" />
+          </IPhoneFace>
+          <SiteMap />
+        </Container>
+      </Wrapper>
     </BrowserRouter>
   );
 }
 
 export default App;
+const Wrapper = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  height: 100%;
+`;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  height: 850px;
+  box-sizing: border-box;
+  @media (max-width: 480px) {
+    height: 100%;
+  }
+  @media (max-width: 320px) {
+    align-items: flex-start;
+    height: 100%;
+  }
+`;
 
 const HomeButton = styled(Link)`
   cursor: pointer;
@@ -83,16 +108,4 @@ const IPhoneFace = styled.div`
   background-size: 322px 657px;
   background-position: center;
   background-repeat: no-repeat;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  align-items: center;
-  height: 800px;
-  /* border: 1px solid red; */
-  box-sizing: border-box;
-  /* margin: 0px auto; */
-  /* min-height: 600px; */
 `;

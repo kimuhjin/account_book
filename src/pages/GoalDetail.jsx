@@ -4,55 +4,69 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import EditIcon from "../Icons/EditIcon.png";
-function GoalDetail() {
+function GoalDetail({ match }) {
+  const Id = match.params.Id.split(":")[1];
+  const getGoalData = JSON.parse(window.localStorage.getItem("GoalData"));
   const history = useHistory();
-  return (
-    <Fragment>
-      <Container>
-        <Header>
-          <Arrow
-            onClick={() => {
-              history.goBack();
-            }}
-          />
-          <EditBtn />
-        </Header>
-        <MainArea>
-          <Wage>
-            6,000원
-            <div className="divide">/30,000원</div>
-          </Wage>
-        </MainArea>
-        <ScrollWrapper>
-          <GoalTitleArea>
-            <GTHeader>
-              목표타이틀
-              <div className="category">카테고리</div>
-            </GTHeader>
-            <GTBody>
-              <div className="top">
-                일주일에 &nbsp;<div className="money">00000원</div>을 아끼면
-              </div>
-              <div className="bottom">
-                <div className="day">30일&nbsp;</div> 내로 목표달성!
-              </div>
-            </GTBody>
-          </GoalTitleArea>
-          <Tab>
-            <Filter>
-              최신순 <BiChevronDown size={16} />
-            </Filter>
-          </Tab>
-          <UsedArea>
-            <UsedBox />
-            <UsedBox />
-            <UsedBox />
-            <UsedBox />
-          </UsedArea>
-        </ScrollWrapper>
-      </Container>
-    </Fragment>
-  );
+  const RenderGoalDetail = getGoalData.map((v, index) => {
+    if (String(v.Id) === Id) {
+      return (
+        <Fragment key={index}>
+          <Container>
+            <Header>
+              <Arrow
+                onClick={() => {
+                  history.goBack();
+                }}
+              />
+              <EditBtn />
+            </Header>
+            <MainArea imgSrc={v.GoalImageSrc}>
+              <Wage>
+                6,000원
+                <div className="divide">/{v.GoalPrice.toLocaleString()}원</div>
+              </Wage>
+            </MainArea>
+            <ScrollWrapper>
+              <GoalTitleArea>
+                <GTHeader>
+                  {v.GoalTitle}
+                  <div className="category">카테고리</div>
+                </GTHeader>
+                <GTBody>
+                  <div className="top">
+                    일주일에 &nbsp;
+                    <div className="money">
+                      {Math.round((v.GoalPrice - 6000) / (v.GoalDate / 7))}원
+                    </div>
+                    을 아끼면
+                  </div>
+                  <div className="bottom">
+                    <div className="day">{v.GoalDate}일&nbsp;</div> 내로
+                    목표달성!
+                  </div>
+                </GTBody>
+              </GoalTitleArea>
+              <Tab>
+                <Filter>
+                  최신순 <BiChevronDown size={16} />
+                </Filter>
+              </Tab>
+              <UsedArea>
+                <UsedBox />
+                <UsedBox />
+                <UsedBox />
+                <UsedBox />
+              </UsedArea>
+            </ScrollWrapper>
+          </Container>
+        </Fragment>
+      );
+    } else {
+      return 0;
+    }
+  });
+  return <Fragment>{RenderGoalDetail}</Fragment>;
 }
 
 export default GoalDetail;
@@ -215,18 +229,22 @@ const Header = styled.div`
   background-color: transparent;
   height: 30px;
   width: 100%;
-
   padding-right: 10px;
   box-sizing: border-box;
 `;
 
 const MainArea = styled.div`
+  /* margin-top: 20px; */
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 250px;
+  height: 230px;
   background-color: #d3d7de;
+  background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
+  background-size: 100% 230px;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const Container = styled.div`
