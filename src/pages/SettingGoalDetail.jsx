@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { GoalInfo } from "../_actions/setGoal_actions";
+import { GoalTempImage } from "../_actions/setGoal_actions";
 import AppHeader from "../Components/AppHeader";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
@@ -19,7 +19,26 @@ function SettingGoalDetail() {
   const [GoalPrice, setGoalPrice] = useState("");
   const [GoalDate, setGoalDate] = useState(0);
   const [GoalAccount, setGoalAccount] = useState([]);
+  const [ImageSrc, setImageSrc] = useState(
+    localStorage.getItem("SettingGoalImage")
+  );
 
+  console.log(ImageSrc);
+  const SetImage = () => {
+    document.getElementById("file").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result
+          .replace("data:", "")
+          .replace(/^.+,/, "");
+
+        localStorage.setItem("SettingGoalImage", base64String);
+        setImageSrc(localStorage.getItem("SettingGoalImage"));
+      };
+      reader.readAsDataURL(file);
+    });
+  };
   const RenderDummy = Dummy.map((v) => {
     return (
       <Fragment>
@@ -57,8 +76,9 @@ function SettingGoalDetail() {
         GoalPrice: GoalPrice,
         GoalDate: GoalDate,
         GoalAccount: GoalAccount,
+        GoalImageSrc: ImageSrc,
       };
-      dispatch(GoalInfo(GoalData));
+
       const OriginData = JSON.parse(window.localStorage.getItem("GoalData"));
       // 먼저 로컬세션의 GoalData에서 해당 데이터를 받아오고
       if (OriginData === null) {
@@ -71,6 +91,8 @@ function SettingGoalDetail() {
         console.log(NewData);
         window.localStorage.setItem("GoalData", JSON.stringify(NewData));
       }
+      localStorage.setItem("SettingGoalImage", null);
+      dispatch(GoalTempImage(ImageSrc));
       history.push("/SettingGoalFinish");
     } else {
       alert("입력되지 않은 폼이 있습니다.");
@@ -88,9 +110,21 @@ function SettingGoalDetail() {
     <Fragment>
       <Container>
         <AppHeader TitleText={"목표설정"} />
-        <SetImageArea>
+        <SetImageArea
+          id="SetImageArea"
+          imgSrc={ImageSrc}
+          onClick={() => document.all.file.click()}
+        >
           <PlusIcon />
-          <ImageText>이미지 추가</ImageText>
+          <ImageText>
+            <input
+              type="file"
+              id="file"
+              style={{ display: "none" }}
+              onClick={SetImage}
+            />
+            이미지 추가
+          </ImageText>
         </SetImageArea>
         <GoalInput
           placeholder={GoalTitle}
@@ -345,7 +379,11 @@ const PlusIcon = styled(AiOutlinePlusCircle)`
   color: #666e78;
   margin-bottom: 10px;
 `;
-const ImageText = styled.div`
+const ImageText = styled.button`
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
   font-size: 14px;
   color: #666e78;
 `;
@@ -360,6 +398,10 @@ const SetImageArea = styled.div`
   height: 180px;
   border: 1px solid #d6dde7;
   border-radius: 50%;
+  background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
+  background-size: 180px 180px;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 const Container = styled.div`
   margin-top: 20px;

@@ -11,7 +11,6 @@ function Login() {
   const dispatch = useDispatch();
   console.log(UserCheck);
   const onSubmit = (e) => {
-    e.preventDefault();
     if (Id === UserCheck.Id && PassWord === UserCheck.PassWord) {
       dispatch(UserInfo());
       const CheckGoalExist = JSON.parse(
@@ -28,6 +27,11 @@ function Login() {
       alert("아이디 혹은 비밀번호를 확인해주세요.");
     }
   };
+  const KeyboardEvt = (e) => {
+    if (e && e.keyCode === 13) {
+      onSubmit();
+    }
+  };
   return (
     <Fragment>
       <Container>
@@ -37,12 +41,14 @@ function Login() {
           type="id"
           value={Id}
           onChange={(e) => setId(e.target.value)}
+          onKeyUp={KeyboardEvt}
         ></InputArea>
         <InputArea
           placeholder="PASSWORD"
           type="password"
           value={PassWord}
           onChange={(e) => setPassWord(e.target.value)}
+          onKeyUp={KeyboardEvt}
         ></InputArea>
         <LoginButton onClick={onSubmit}>로그인</LoginButton>
         <SignUpFind>

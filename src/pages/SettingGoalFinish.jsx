@@ -1,13 +1,22 @@
 import React, { Fragment } from "react";
 import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { GoalTempImage } from "../_actions/setGoal_actions";
+import { useHistory } from "react-router-dom";
 function SettingGoalFinish() {
   const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
   const UserName = getUserData.NickName;
+  const getGoalImage = useSelector((state) => state.Goal.GoalInfo);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const onClose = () => {
+    dispatch(GoalTempImage(null));
+    history.push("/MainPage");
+  };
   return (
     <Fragment>
       <Container>
-        <ImageArea />
+        <ImageArea imgSrc={getGoalImage} />
         <UserNameArea>
           {UserName}
           <div className="sla">님</div>
@@ -20,7 +29,7 @@ function SettingGoalFinish() {
             원하는 것을 얻길 바래요
           </div>
         </TextArea>
-        <FinishButton to="MainPage">닫기</FinishButton>
+        <FinishButton onClick={onClose}>닫기</FinishButton>
       </Container>
     </Fragment>
   );
@@ -36,7 +45,7 @@ to {
 }
 `;
 
-const FinishButton = styled(Link)`
+const FinishButton = styled.div`
   text-decoration: none;
   margin-top: 20px;
   cursor: pointer;
@@ -106,4 +115,8 @@ const ImageArea = styled.div`
   height: 180px;
   background-color: #f1f4f9;
   border-radius: 50%;
+  background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
+  background-size: 180px 180px;
+  background-position: center;
+  background-repeat: no-repeat;
 `;

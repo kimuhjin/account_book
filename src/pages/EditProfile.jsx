@@ -7,14 +7,36 @@ import AppHeader from "../Components/AppHeader";
 
 function EditProfile() {
   const history = useHistory();
-  const [NickName, setNickName] = useState("");
   const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
   const UserName = getUserData.NickName;
   const UserId = getUserData.Id;
+  const [NickName, setNickName] = useState(UserName);
+  const [ImageChangeCheck, setImageChangeCheck] = useState(false);
+  const [ImageSrc, setImageSrc] = useState(
+    localStorage.getItem("ProfileImage")
+  );
+
+  const SetImage = () => {
+    document.getElementById("file").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result
+          .replace("data:", "")
+          .replace(/^.+,/, "");
+
+        localStorage.setItem("ProfileImage", base64String);
+        setImageSrc(localStorage.getItem("ProfileImage"));
+        setImageChangeCheck(true);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
   const OnSubmit = (e) => {
-    if (NickName !== "") {
+    if (NickName !== "" || ImageChangeCheck) {
       e.preventDefault();
       getUserData.NickName = NickName;
+      getUserData.ProfileImage = ImageSrc;
       window.localStorage.setItem("UserValue", JSON.stringify(getUserData));
       alert("수정되었습니다.");
       history.push("/MainPage");
@@ -26,8 +48,16 @@ function EditProfile() {
     <Fragment>
       <Container>
         <AppHeader TitleText={""} />
-        <UserIcon>
-          <PlusIcon />
+        <UserIcon imgSrc={ImageSrc}>
+          <IconButton onClick={() => document.all.file.click()}>
+            <PlusIcon />
+            <input
+              type="file"
+              id="file"
+              style={{ display: "none" }}
+              onClick={SetImage}
+            />
+          </IconButton>
         </UserIcon>
         <InfoArea>
           <Title>닉네임</Title>
@@ -50,6 +80,11 @@ function EditProfile() {
 }
 
 export default EditProfile;
+const IconButton = styled.button`
+  outline: none;
+  border: none;
+  background-color: transparent;
+`;
 const EditButton = styled.div`
   text-decoration: none;
   margin-top: 50px;
@@ -147,6 +182,10 @@ const UserIcon = styled.div`
   height: 100px;
   border-radius: 50%;
   background-color: #f1f4f9;
+  background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
+  background-size: 100px 100px;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 const Container = styled.div`
   margin-top: 30px;
