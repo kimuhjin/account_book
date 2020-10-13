@@ -1,27 +1,33 @@
 import React, { Fragment, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { GoalTempImage } from "../_actions/setGoal_actions";
 import AppHeader from "../Components/AppHeader";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
 
 import { Link, useHistory } from "react-router-dom";
-function SettingGoalDetail() {
+function EditGoalDetail({ match }) {
+  const dispatch = useDispatch();
   const Dummy = [
     { Id: 1, Bank: "워니은행", Balance: 145000 },
     { Id: 2, Bank: "국민은행", Balance: 25000 },
   ];
-  const getGoalTitle = useSelector((state) => state.Goal.GoalTitle);
-  const dispatch = useDispatch();
+  const Id = match.params.Id.split(":")[1];
+  const getGoalData = JSON.parse(
+    window.localStorage.getItem("GoalData")
+  ).filter((v) => String(v.Id) === Id);
+  // 수정할 GoalData만 필터링
+  const getOriginData = JSON.parse(
+    window.localStorage.getItem("GoalData")
+  ).filter((v) => String(v.Id) !== Id);
+  // 수정할 GoalData을 제외한 모든 데이터 필터링
   const history = useHistory();
-  const [GoalTitle, setGoalTitle] = useState(getGoalTitle);
-  const [GoalPrice, setGoalPrice] = useState("");
-  const [GoalDate, setGoalDate] = useState(0);
-  const [GoalAccount, setGoalAccount] = useState([]);
-  const [ImageSrc, setImageSrc] = useState(
-    localStorage.getItem("SettingGoalImage")
-  );
+  const [GoalTitle, setGoalTitle] = useState(getGoalData[0].GoalTitle);
+  const [GoalPrice, setGoalPrice] = useState(getGoalData[0].GoalPrice);
+  const [GoalDate, setGoalDate] = useState(getGoalData[0].GoalDate);
+  const [GoalAccount, setGoalAccount] = useState(getGoalData[0].GoalAccount);
+  const [ImageSrc, setImageSrc] = useState(getGoalData[0].GoalImageSrc);
 
   const SetImage = () => {
     document.getElementById("file").addEventListener("change", (e) => {
@@ -67,28 +73,17 @@ function SettingGoalDetail() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (GoalTitle !== "" && GoalPrice !== "" && GoalDate !== 0) {
-      const Id = Number(new Date());
       // new Date를 통해 UUID 생성
       const GoalData = {
-        Id: Id,
+        Id: getGoalData[0].Id,
         GoalTitle: GoalTitle,
         GoalPrice: GoalPrice,
         GoalDate: GoalDate,
         GoalAccount: GoalAccount,
         GoalImageSrc: ImageSrc,
       };
-
-      const OriginData = JSON.parse(window.localStorage.getItem("GoalData"));
-      // 먼저 로컬세션의 GoalData에서 해당 데이터를 받아오고
-      if (OriginData === null) {
-        // OriginData가 비어있으면 GoalData를 배열에 담아 로컬스토리지에 저장
-        window.localStorage.setItem("GoalData", JSON.stringify([GoalData]));
-        // GoalData를 배열에 담는 이유는 iterable한 데이터를 만들기 위해서
-      } else if (OriginData !== null) {
-        // OriginData가 비어있지 않다면 OriginData와 GoalData를 배열에 담아 로컬스토리지에 저장
-        const NewData = [...OriginData, GoalData];
-        window.localStorage.setItem("GoalData", JSON.stringify(NewData));
-      }
+      const NewData = [...getOriginData, GoalData];
+      window.localStorage.setItem("GoalData", JSON.stringify(NewData));
       localStorage.setItem("SettingGoalImage", null);
       dispatch(GoalTempImage(ImageSrc));
       history.push("/SettingGoalFinish");
@@ -96,18 +91,11 @@ function SettingGoalDetail() {
       alert("입력되지 않은 폼이 있습니다.");
     }
   };
-  // const PriceChange = (e) => {
-  //   if (Number(e.target.value) != NaN) {
-  //     setGoalPrice(Number(e.target.value.split(",").join("")));
-  //   } else if (Number(e.target.value) == NaN) {
-  //     alert("숫자를 입력해주세요.");
-  //   }
-  // };
 
   return (
     <Fragment>
       <Container>
-        <AppHeader TitleText={"목표설정"} />
+        <AppHeader TitleText={"목표수정"} />
         <SetImageArea
           id="SetImageArea"
           imgSrc={ImageSrc}
@@ -179,7 +167,7 @@ function SettingGoalDetail() {
   );
 }
 
-export default SettingGoalDetail;
+export default EditGoalDetail;
 const PopUp = keyframes`
 from{
     opacity:0;

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import EditIcon from "../Icons/EditIcon.png";
 function GoalDetail({ match }) {
   const Id = match.params.Id.split(":")[1];
@@ -19,7 +19,7 @@ function GoalDetail({ match }) {
                   history.goBack();
                 }}
               />
-              <EditBtn />
+              <EditBtn to={`/EditGoalDetail/:${v.Id}`} />
             </Header>
             <MainArea imgSrc={v.GoalImageSrc}>
               <Wage>
@@ -200,7 +200,7 @@ const Wage = styled.div`
   }
 `;
 
-const EditBtn = styled.div`
+const EditBtn = styled(Link)`
   cursor: pointer;
   width: 24px;
   height: 24px;

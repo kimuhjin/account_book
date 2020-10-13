@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import { BsThreeDots } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import UsedReport from "../Components/MainPage/UsedReport";
+import UnexpectedUsed from "../Components/MainPage/UnexpectedUsed";
 function MainPage() {
   const getGoalData = JSON.parse(window.localStorage.getItem("GoalData"));
   const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
@@ -11,7 +13,7 @@ function MainPage() {
     return (
       <Fragment key={index}>
         <Account>
-          <MoreButton>
+          <MoreButton to={`/EditGoalDetail/:${v.Id}`}>
             <MoreButtonIcon />
           </MoreButton>
           <ClickableArea to={`/GoalDetail/:${v.Id}`}>
@@ -53,6 +55,8 @@ function MainPage() {
             </AccountContainer>
           </AccountArea>
         </InfoArea>
+        <UsedReport />
+        <UnexpectedUsed />
       </Container>
     </Fragment>
   );
@@ -231,6 +235,6 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   box-sizing: border-box;
 `;

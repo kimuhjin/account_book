@@ -14,7 +14,7 @@ function SiteMap() {
         <Links to="/MainPage">메인페이지</Links>
         <Links to="/EditProfile">프로필수정</Links>
         <Links to="/Goal">목표</Links>
-        <Links to="/GoalDetail">목표세부</Links>
+        {/*<Links to="/GoalDetail">목표세부</Links>*/}
       </Container>
     </Fragment>
   );

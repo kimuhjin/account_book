@@ -13,6 +13,7 @@ import MainPage from "./pages/MainPage";
 import EditProfile from "./pages/EditProfile";
 import Goal from "./pages/Goal";
 import GoalDetail from "./pages/GoalDetail";
+import EditGoalDetail from "./pages/EditGoalDetail";
 
 function Routes() {
   return (
@@ -29,6 +30,7 @@ function Routes() {
       <Route exact path="/EditProfile" component={EditProfile} />
       <Route exact path="/Goal" component={Goal} />
       <Route exact path="/GoalDetail/:Id" component={GoalDetail} />
+      <Route exact path="/EditGoalDetail/:Id" component={EditGoalDetail} />
     </Fragment>
   );
 }
