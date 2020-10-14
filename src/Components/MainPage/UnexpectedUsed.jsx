@@ -11,9 +11,10 @@ function UnexpectedUsed() {
         </Header>
         <Disc>예상치 못한 지출</Disc>
         <UsedArea>
-          <WasteUsed></WasteUsed>
-          <WasteUsed></WasteUsed>
-          <WasteUsed></WasteUsed>
+          <WasteUsed />
+          <WasteUsed />
+          <WasteUsed />
+          <TempMarginArea />
         </UsedArea>
       </Container>
     </Fragment>
@@ -21,7 +22,12 @@ function UnexpectedUsed() {
 }
 
 export default UnexpectedUsed;
-
+const TempMarginArea = styled.div`
+  width: 16px;
+  height: 16px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+`;
 const WasteUsed = styled.div`
   background-color: #06beb6;
   margin-right: 8px;
@@ -31,12 +37,15 @@ const WasteUsed = styled.div`
   box-sizing: border-box;
 `;
 const UsedArea = styled.div`
+  padding: 0px 16px;
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 10px;
   width: 100%;
-  min-height: 110px;
+  min-height: 120px;
+  /* height: 100%; */
   overflow: scroll;
   ::-webkit-scrollbar {
     display: none;
@@ -45,6 +54,8 @@ const UsedArea = styled.div`
 `;
 
 const Disc = styled.div`
+  padding: 0px 16px;
+  box-sizing: border-box;
   font-size: 10px;
   color: #666e78;
 `;
@@ -61,6 +72,8 @@ const PoultryLegIcon = styled.div`
 `;
 
 const Header = styled.div`
+  padding: 0px 16px;
+  box-sizing: border-box;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -73,8 +86,8 @@ const Header = styled.div`
   }
 `;
 const Container = styled.div`
-  padding: 16px;
   width: 100%;
+
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

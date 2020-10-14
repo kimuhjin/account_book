@@ -9,6 +9,7 @@ function MainPage() {
   const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
   console.log();
   // D-day 계산 로직 아직 없음
+  // D-day 계산 로직 아직 없음
   const RenderGoal = getGoalData.map((v, index) => {
     return (
       <Fragment key={index}>
@@ -51,7 +52,7 @@ function MainPage() {
             </AllButtonArea>
             <AccountContainer>
               {RenderGoal}
-              <TempMarginArea />
+              {getGoalData.length !== 1 && <TempMarginArea />}
             </AccountContainer>
           </AccountArea>
         </InfoArea>
