@@ -86,8 +86,8 @@ const Header = styled.div`
   }
 `;
 const Container = styled.div`
+  margin-top: 20px;
   width: 100%;
-
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

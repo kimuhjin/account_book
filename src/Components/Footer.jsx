@@ -74,7 +74,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  z-index: 999px;
+  z-index: 999;
   bottom: 0px;
   width: 100%;
   height: 40px;
