@@ -1,5 +1,9 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
+import AppLogo from "../IPhoneFrame/AppLogo.png";
+import KakaoLogo from "../Icons/카카오.png";
+import FacebookLogo from "../Icons/페이스북.png";
+import GoogleLogo from "../Icons/구글.png";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UserInfo } from "../_actions/user_actions";
@@ -34,7 +38,7 @@ function Login() {
   return (
     <Fragment>
       <Container>
-        <UserIcon></UserIcon>
+        <AppIcon></AppIcon>
         <InputArea
           placeholder="ID"
           type="id"
@@ -56,9 +60,9 @@ function Login() {
           <LinkButton to="/FindId">ID / Password 찾기</LinkButton>
         </SignUpFind>
         <SnsLoginArea>
-          <SnsButton>카카오</SnsButton>
-          <SnsButton>구글</SnsButton>
-          <SnsButton>페북</SnsButton>
+          <SnsButton IconSrc={KakaoLogo} />
+          <SnsButton IconSrc={FacebookLogo} />
+          <SnsButton IconSrc={GoogleLogo} />
         </SnsLoginArea>
       </Container>
     </Fragment>
@@ -72,32 +76,35 @@ const SnsLoginArea = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0px 5px;
+  padding: 0px 30px;
   box-sizing: border-box;
 `;
 const SnsButton = styled.div`
   cursor: pointer;
   outline: none;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   color: #c3c9d1;
-  width: 72px;
-  height: 72px;
-  background-color: #f1f4f9;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  background-image: url(${(props) => props.IconSrc});
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const LinkButton = styled(Link)`
   text-decoration: none;
-  color: #c3c9d1;
+  color: #fff;
 `;
 
 const SignUpFind = styled.div`
-  margin-top: 25px;
-  margin-bottom: 50px;
+  margin-top: 15px;
+  margin-bottom: 25px;
   font-size: 14px;
-  color: #c3c9d1;
+  color: #fff;
 `;
 const LoginButton = styled(Link)`
   text-decoration: none;
@@ -106,7 +113,7 @@ const LoginButton = styled(Link)`
   justify-content: center;
   align-items: center;
   border: none;
-  color: #fff;
+  color: #06beb6;
   margin-top: 15px;
   outline: none;
   width: 100%;
@@ -114,7 +121,7 @@ const LoginButton = styled(Link)`
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
-  background-color: #666e78;
+  background-color: #fff;
   font-weight: bold;
   font-size: 20px;
 `;
@@ -126,21 +133,22 @@ const InputArea = styled.input`
   border-radius: 8px;
   font-size: 16px;
   padding: 20px 18px;
-  border: 1px solid #d6dde7;
+  border: 1px solid transparent;
   box-sizing: border-box;
   &::placeholder {
-    color: #d6dde7;
-    font-size: 16px;
+    color: #a5aab2;
+    font-size: 14px;
   }
 `;
 
-const UserIcon = styled.div`
-  margin-top: 40px;
-  margin-bottom: 40px;
-  width: 120px;
-  height: 120px;
-  background-color: #f1f4f9;
-  border-radius: 8px;
+const AppIcon = styled.div`
+  margin-bottom: 30px;
+  width: 80px;
+  height: 105.45px;
+  background-image: url(${AppLogo});
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const Container = styled.div`
@@ -150,6 +158,8 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
   padding: 24px 16px;
+  background-image: linear-gradient(0deg, rgb(72, 177, 191), rgb(6, 190, 182));
 `;

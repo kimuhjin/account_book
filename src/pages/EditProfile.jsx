@@ -100,7 +100,7 @@ const EditButton = styled.div`
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
-  background-color: #666e78;
+  background-color: #06beb6;
   font-weight: bold;
 `;
 
@@ -122,7 +122,7 @@ const IdValue = styled.div`
 const CheckIcon = styled(AiFillCheckCircle)`
   width: 16px;
   height: 16px;
-  color: #666e78;
+  color: #06beb6;
 `;
 const CheckValue = styled.div`
   display: flex;
@@ -134,7 +134,7 @@ const CheckValue = styled.div`
     margin-left: 5px;
     margin-top: 2px;
     font-size: 10px;
-    color: #666e78;
+    color: #06beb6;
   }
 `;
 const InputArea = styled.input`
@@ -182,7 +182,7 @@ const UserIcon = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #f1f4f9;
+  background-color: #06beb6;
   background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
   background-size: 100px 100px;
   background-position: center;

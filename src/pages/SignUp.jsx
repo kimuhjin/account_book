@@ -79,7 +79,7 @@ const SignUpButton = styled(Link)`
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
-  background-color: #666e78;
+  background-color: #06beb6;
   font-weight: bold;
 `;
 const InputArea = styled.input`

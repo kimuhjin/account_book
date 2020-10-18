@@ -13,15 +13,16 @@ function GoalDetail({ match }) {
       return (
         <Fragment key={index}>
           <Container>
-            <Header>
-              <Arrow
-                onClick={() => {
-                  history.goBack();
-                }}
-              />
-              <EditBtn to={`/EditGoalDetail/:${v.Id}`} />
-            </Header>
-            <MainArea imgSrc={v.GoalImageSrc}>
+            <MainArea>
+              <Header>
+                <Arrow
+                  onClick={() => {
+                    history.goBack();
+                  }}
+                />
+                <EditBtn to={`/EditGoalDetail/:${v.Id}`} />
+              </Header>
+              <ImageArea imgSrc={v.GoalImageSrc} />
               <Wage>
                 6,000원
                 <div className="divide">/{v.GoalPrice.toLocaleString()}원</div>
@@ -62,15 +63,28 @@ function GoalDetail({ match }) {
           </Container>
         </Fragment>
       );
-    } else {
-      return 0;
     }
   });
   return <Fragment>{RenderGoalDetail}</Fragment>;
 }
 
 export default GoalDetail;
-
+const ImageArea = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 10px; */
+  width: 100px;
+  height: 100px;
+  background-color: #f1f4f9;
+  border-radius: 50%;
+  background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
+  background-size: 180px 180px;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
 const ScrollWrapper = styled.div`
   width: 100%;
   height: 212px;
@@ -185,18 +199,18 @@ const GoalTitleArea = styled.div`
 `;
 
 const Wage = styled.div`
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #666e78;
+  color: #fff;
   font-size: 24px;
   font-weight: bold;
   .divide {
     margin-top: 3px;
     font-size: 12px;
     font-weight: normal;
-    color: #abb2bb;
   }
 `;
 
@@ -216,13 +230,13 @@ const Arrow = styled(RiArrowLeftSLine)`
   align-items: center;
   width: 30px;
   height: 30px;
-  color: #666e78;
+  color: #fff;
   cursor: pointer;
 `;
 const Header = styled.div`
-  top: 25px;
+  top: 30px;
   position: absolute;
-  z-index: 999;
+  z-index: 99;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -230,28 +244,24 @@ const Header = styled.div`
   height: 30px;
   width: 100%;
   padding-right: 10px;
+  padding-left: 5px;
   box-sizing: border-box;
 `;
 
 const MainArea = styled.div`
-  /* margin-top: 20px; */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 230px;
-  background-color: #d3d7de;
-  background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
-  background-size: 100% 230px;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 260px;
+  background-image: linear-gradient(0deg, rgb(72, 177, 191), rgb(6, 190, 182));
 `;
 
 const Container = styled.div`
   position: absolute;
   /* margin-top: 15px; */
   display: flex;
-
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;

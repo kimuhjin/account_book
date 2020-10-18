@@ -22,6 +22,7 @@ function SettingGoal() {
   return (
     <Fragment>
       <Container>
+        {/*<BackgroundCircleColorArea />*/}
         <AppHeader TitleText={"목표설정"} />
         <UserNameArea>
           {UserName}
@@ -33,24 +34,26 @@ function SettingGoal() {
           <RecommendGoal value="비행기 티켓" onClick={onSubmit}>
             <GoalTitleArea>비행기 티켓</GoalTitleArea>
             <GoalIcon icon={AirplaneIcon} />
-            <GoalTitleArea>₩ 550,000</GoalTitleArea>
+            <GoalPriceArea>₩ 550,000</GoalPriceArea>
           </RecommendGoal>
           <RecommendGoal value="아티스트 앨범" onClick={onSubmit}>
             <GoalTitleArea>아티스트 엘범</GoalTitleArea>
             <GoalIcon icon={ArtistIcon} />
-            <GoalTitleArea>₩ 50,000</GoalTitleArea>
+            <GoalPriceArea>₩ 550,000</GoalPriceArea>
           </RecommendGoal>
         </RecommendGoalArea>
         <GoalCategory value="스포츠" onClick={onSubmit}>
-          <GoalTitleArea>스포츠</GoalTitleArea>
+          <GoalTableTitleArea>스포츠</GoalTableTitleArea>
           <GoalCategoryIcon icon={Sport_Thumb} />
         </GoalCategory>
         <GoalCategory value="음악" onClick={onSubmit}>
-          <GoalTitleArea>음악</GoalTitleArea>
+          <GoalTableTitleArea>음악</GoalTableTitleArea>
+
           <GoalCategoryIcon icon={Music_Thumb} />
         </GoalCategory>
         <GoalCategory value="여행" onClick={onSubmit}>
-          <GoalTitleArea>여행</GoalTitleArea>
+          <GoalTableTitleArea>여행</GoalTableTitleArea>
+
           <GoalCategoryIcon icon={Airplane_Thumb} />
         </GoalCategory>
       </Container>
@@ -67,6 +70,15 @@ to {
     opacity:1;
 }
 `;
+const BackgroundCircleColorArea = styled.div`
+  position: absolute;
+  top: 250px;
+  z-index: 1;
+  width: 360px;
+  height: 250px;
+  border-radius: 50%;
+  background-color: #47b2bf;
+`;
 const GoalCategoryIcon = styled.div`
   pointer-events: none;
   width: 24px;
@@ -80,18 +92,32 @@ const GoalIcon = styled.div`
   pointer-events: none;
   width: 80px;
   height: 80px;
+
   background-image: url(${(props) => props.icon});
   background-size: 100% auto;
   background-position: center;
   background-repeat: no-repeat;
 `;
+const GoalPriceArea = styled.div`
+  pointer-events: none;
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
+`;
+const GoalTableTitleArea = styled.div`
+  pointer-events: none;
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
+`;
 const GoalTitleArea = styled.div`
   pointer-events: none;
   font-size: 20px;
-  color: #666e78;
+  color: #47b2bf;
   font-weight: bold;
 `;
 const GoalCategory = styled.button`
+  z-index: 888;
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -119,6 +145,7 @@ const RecommendGoalArea = styled.div`
   -ms-overflow-style: none;
 `;
 const RecommendGoal = styled.button`
+  z-index: 888;
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -130,27 +157,32 @@ const RecommendGoal = styled.button`
   min-width: 170px;
   min-height: 170px;
   margin-right: 15px;
-  border: 1px solid #d6dde7;
+  border: 1px solid #47b2bf;
   background-color: #fff;
   border-radius: 8px;
   padding: 16px;
 `;
 const TextArea = styled.div`
+  /* z-index: 888; */
   margin-top: 10px;
   width: 100%;
-  color: #666e78;
+  color: #000;
   font-size: 20px;
 `;
 const UserNameArea = styled.div`
+  /* z-index: 888; */
   margin-top: 20px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
   width: 100%;
   font-size: 30px;
-  color: #666e78;
+  color: #47b2bf;
   font-weight: bold;
   .sla {
+    color: #000;
+    margin-bottom: 3px;
+    font-size: 18px;
     font-weight: normal;
   }
 `;
