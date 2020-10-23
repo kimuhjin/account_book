@@ -39,7 +39,7 @@ function SettingGoal() {
           <RecommendGoal value="아티스트 앨범" onClick={onSubmit}>
             <GoalTitleArea>아티스트 엘범</GoalTitleArea>
             <GoalIcon icon={ArtistIcon} />
-            <GoalPriceArea>₩ 550,000</GoalPriceArea>
+            <GoalPriceArea>₩ 540,000</GoalPriceArea>
           </RecommendGoal>
         </RecommendGoalArea>
         <GoalCategory value="스포츠" onClick={onSubmit}>
