@@ -148,21 +148,21 @@ function SettingGoalDetail() {
           clicked={GoalDate}
           onClick={(e) => setGoalDate(Number(e.target.value))}
         >
-          1 week
+          1주일
         </SelectDday>
         <SelectDday
           value={30}
           clicked={GoalDate}
           onClick={(e) => setGoalDate(Number(e.target.value))}
         >
-          1 month
+          1달
         </SelectDday>
         <SelectDday
           value={90}
           clicked={GoalDate}
           onClick={(e) => setGoalDate(Number(e.target.value))}
         >
-          3 month
+          3달
         </SelectDday>
         <SelectDdayInput
           placeholder="직접입력"
