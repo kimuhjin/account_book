@@ -13,7 +13,7 @@ function Footer({ Location }) {
         <Home to="MainPage" />
         <Save to="MainPage" />
         <Account to="MainPage" />
-        <Cal to="MainPage" />
+        <Cal to="Calendarpage" />
         <All to="MainPage" />
       </Container>
     </Fragment>

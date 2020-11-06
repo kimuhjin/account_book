@@ -14,7 +14,7 @@ import EditProfile from "./pages/EditProfile";
 import Goal from "./pages/Goal";
 import GoalDetail from "./pages/GoalDetail";
 import EditGoalDetail from "./pages/EditGoalDetail";
-
+import Calendarpage from './pages/Calendarpage'
 function Routes() {
   return (
     <Fragment>
@@ -31,6 +31,7 @@ function Routes() {
       <Route exact path="/Goal" component={Goal} />
       <Route exact path="/GoalDetail/:Id" component={GoalDetail} />
       <Route exact path="/EditGoalDetail/:Id" component={EditGoalDetail} />
+      <Route exact path="/Calendarpage" component={Calendarpage}/>
     </Fragment>
   );
 }

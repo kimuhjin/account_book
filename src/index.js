@@ -8,6 +8,7 @@ import { createStore, applyMiddleware } from "redux";
 import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./_reducers";
+import './calendar.css';
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
   ReduxThunk
