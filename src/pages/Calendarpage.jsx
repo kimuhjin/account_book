@@ -2,9 +2,6 @@ import React, { Fragment, Component } from "react";
 import Header from "../Components/Calendar/Header";
 import Calendar from "../Components/Calendar/Calendar";
 import moment from "moment";
-import WallPaper from "../IPhoneFrame/WallPaper.png";
-import AppIconImage from "../IPhoneFrame/AppIcon.png";
-import styled from "styled-components";
 
 export default class Calendarpage extends Component {
   state = {
