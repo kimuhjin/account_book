@@ -78,15 +78,15 @@ const Header = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
-  color: #666e78;
+  color: #212829;
   .disc {
-    color: #666e78;
+    color: #212829;
   }
 `;
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 40px;
   width: 100%;
   box-sizing: border-box;
   display: flex;

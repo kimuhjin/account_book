@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Wrapper>
         <Container>
-          <IPhoneFace>
+          {/*<IPhoneFace>*/}
             <Screen>
               <Header Location={Location} />
               <View>
@@ -30,7 +30,7 @@ function App() {
               </View>
             </Screen>
             <HomeButton to="/" />
-          </IPhoneFace>
+          {/*</IPhoneFace>*/}
           <SiteMap />
         </Container>
       </Wrapper>
@@ -52,7 +52,8 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   align-items: center;
-  height: 850px;
+  /* height: 850px; */
+  height: 100%;
   box-sizing: border-box;
   @media (max-width: 480px) {
     height: 100%;
@@ -79,7 +80,7 @@ const View = styled.div`
   /* padding-top: 20px; */
   width: 100%;
   /* height: 482px; */
-  height: 502px;
+  height: 100%;
   /* border: 1px solid red; */
   box-sizing: border-box;
   overflow: scroll;
@@ -91,13 +92,13 @@ const View = styled.div`
 
 const Screen = styled.div`
   position: absolute;
-  top: 78px;
-  left: 18px;
-  width: 285px;
-  height: 502px;
+  /* top: 78px; */
+  /* left: 18px; */
+  width: 375px;
+  height: 100%;
   background-color: white;
   border-radius: 2px;
-  /* border: 1px solid red; */
+  border: 1px solid red;
   box-sizing: border-box;
 `;
 const IPhoneFace = styled.div`

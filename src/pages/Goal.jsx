@@ -1,13 +1,17 @@
 import React, { Fragment, useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
-import styled from "styled-components";
+import styled,{keyframes} from "styled-components";
 import { HiPlus } from "react-icons/hi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
 import AppHeader from "../Components/AppHeader";
+import GoalPopup from "../Components/Goal/GoalPopup";
+import SavePopup from "../Components/Goal/SavePopup";
 
 function Goal() {
+  const [PopupOpen, setPopupOpen] = useState(false)
+  const [SavePopupOpen, setSavePopupOpen] = useState(false)
   useEffect(() => {}, []);
   const getUserData = JSON.parse(window.localStorage.getItem("UserValue"));
   const getGoalData = JSON.parse(window.localStorage.getItem("GoalData"));
@@ -15,20 +19,6 @@ function Goal() {
 
   const UserName = getUserData.NickName;
   const history = useHistory();
-  const DotClick = (e) => {
-    if (window.confirm("정말 삭제하시겠습니까?") === true) {
-      const FilteredGoalData = GoalData.filter(
-        (v) => v.Id !== Number(e.target.value)
-      );
-      setGoalData(FilteredGoalData);
-      window.localStorage.setItem("GoalData", JSON.stringify(FilteredGoalData));
-    } else {
-      return null;
-    }
-
-    // console.log(FilteredGoalData);
-  };
-  //   console.log(getGoalData);
   const RenderGoal = GoalData.map((v, index) => {
     return (
       <Fragment key={index}>
@@ -36,7 +26,7 @@ function Goal() {
           <GoalPaddingArea>
             <CardTop>
               <AccountNumber>계좌 000-0000-0000 </AccountNumber>
-              <ThreeDotButton value={v.Id} onClick={DotClick}>
+              <ThreeDotButton onClick={()=>setPopupOpen(!PopupOpen)}>
                 <ThreeDot />
               </ThreeDotButton>
             </CardTop>
@@ -45,16 +35,28 @@ function Goal() {
                 6,000원
                 <div className="divide">/{v.GoalPrice.toLocaleString()}원</div>
               </Wage>
-              <GoalInfoArea>
-                <GoalTitle>{v.GoalTitle}</GoalTitle>
-                <GoalCategory>카테고리</GoalCategory>
-              </GoalInfoArea>
             </ClickableArea>
           </GoalPaddingArea>
           <GoalSave>
-            <SaveButton>저축하기</SaveButton>
+          <GoalInfoArea>
+                <GoalTitle>{v.GoalTitle}</GoalTitle>
+                <GoalCategory>카테고리</GoalCategory>
+              </GoalInfoArea>
+            <SaveButton onClick={()=>setSavePopupOpen(!SavePopupOpen)}>저축하기</SaveButton>
           </GoalSave>
         </GoalCard>
+        <Fragment>
+            <BackGroundLayer PopupOpen={PopupOpen}>
+            <BackGround onClick={()=>setPopupOpen(!PopupOpen)}/>
+            </BackGroundLayer>
+            <GoalPopup PopupOpen={PopupOpen} GoalData={GoalData} setGoalData={setGoalData} Id={v.Id}/>
+            </Fragment>
+            <Fragment>
+            <SaveBackGroundLayer SavePopupOpen={SavePopupOpen}>
+            <SaveBackGround onClick={()=>setSavePopupOpen(!SavePopupOpen)}/>
+            </SaveBackGroundLayer>
+            <SavePopup setSavePopupOpen={setSavePopupOpen} SavePopupOpen={SavePopupOpen} GoalData={GoalData} Id={v.Id}/>
+            </Fragment>
       </Fragment>
     );
   });
@@ -66,7 +68,7 @@ function Goal() {
           <LeftArea>
             <UserNameArea>{UserName}</UserNameArea>
             <Title>
-              목표 성공 &nbsp;
+              목표 성공&nbsp;
               <div className="GoalNumber">0</div>
               회차
             </Title>
@@ -78,11 +80,70 @@ function Goal() {
         <MyGoal>현재 내 목표 {GoalData.length}</MyGoal>
         <GoalArea>{RenderGoal}</GoalArea>
       </Container>
+      
     </Fragment>
   );
 }
 
 export default Goal;
+const FadeIn = () => keyframes`
+from {
+    opacity:0
+}
+to {
+    opacity:0.5
+}
+`;
+const Fadeout = () => keyframes`
+from {
+    opacity:0.5
+}
+to {
+    opacity:0
+}
+`;
+
+const SaveBackGroundLayer = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+position:absolute;
+z-index:9998;
+bottom:0px;
+/* left:0px; */
+width:100%;
+height:100%;
+opacity:0.5;
+background-color: #808080;
+visibility: ${props => props.SavePopupOpen ? 'visible' : 'hidden'};
+animation: ${props => props.SavePopupOpen ? FadeIn : Fadeout} 0.5s linear;
+transition: visibility 0.5s linear;
+`
+const SaveBackGround = styled.div`
+width:100%;
+height:100%;
+`
+
+const BackGroundLayer = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+position:absolute;
+z-index:9998;
+bottom:0px;
+/* left:0px; */
+width:100%;
+height:100%;
+opacity:0.5;
+background-color: #808080;
+visibility: ${props => props.PopupOpen ? 'visible' : 'hidden'};
+animation: ${props => props.PopupOpen ? FadeIn : Fadeout} 0.5s linear;
+transition: visibility 0.5s linear;
+`
+const BackGround = styled.div`
+width:100%;
+height:100%;
+`
 const ClickableArea = styled(Link)`
   text-decoration: none;
 `;
@@ -94,34 +155,41 @@ const ThreeDotButton = styled.button`
   border: none;
 `;
 const ThreeDot = styled(BiDotsVerticalRounded)`
-  pointer-events: none;
-
+pointer-events:none;
   width: 18px;
   height: 18px;
   color: #abb2bb;
 `;
 const GoalCategory = styled.div`
-  display: flex;
+ display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 100%; */
-  font-size: 11px;
-  background-color: #fff;
-  padding: 5px 6px;
-  border-radius: 13px;
-  box-sizing: border-box;
-  color: #666e78;
+    margin-left:10px;
+    font-size:12px;
+    padding:3px 5px;
+    box-sizing:border-box;
+    min-width:39px;
+    height:26px;
+    color:#636872;
+    border-radius:13px;
+    background-color:#F1F4F9;
 `;
-const SaveButton = styled.div`
+const SaveButton = styled.button`
+outline:none;
   cursor: pointer;
   margin-top: 13px;
   width: 100%;
+  height:56px;
   display: flex;
+  border:none;
   justify-content: center;
   align-items: center;
-  color: #666e78;
+  color: #fff;
   font-size: 16px;
   font-weight: bold;
+  border-radius:8px;
+  box-sizing:border-box;
+  background-color:#06BEB6;
 `;
 const GoalPaddingArea = styled.div`
   padding: 16px;
@@ -129,7 +197,9 @@ const GoalPaddingArea = styled.div`
 `;
 const GoalSave = styled.div`
   width: 100%;
-  border-top: 1px solid #d0d8e2;
+  padding:16px;
+  box-sizing:border-box;
+  border-top: 1px solid #E8E8E8;
 `;
 const GoalTitle = styled.div`
   color: #666e78;
@@ -144,19 +214,19 @@ const GoalInfoArea = styled.div`
   align-items: center;
 `;
 const Wage = styled.div`
-  margin-top: 20px;
+  margin: 20px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #666e78;
-  font-size: 24px;
+  color: #000;
+  font-size: 32px;
   font-weight: bold;
   .divide {
     margin-top: 3px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: normal;
-    color: #abb2bb;
+    color: #636872;
   }
 `;
 const AccountNumber = styled.div`
@@ -181,12 +251,12 @@ const GoalArea = styled.div`
 const GoalCard = styled.div`
   text-decoration: none;
   width: 100%;
-  height: 210px;
+  min-height: 280px;
   border-radius: 8px;
   box-sizing: border-box;
   margin-bottom: 16px;
-  border: none;
-  background-color: #f1f4f9;
+  border:1px solid #E8E8E8;
+  background-color: #fff;
 `;
 
 const MyGoal = styled.div`
@@ -196,8 +266,8 @@ const MyGoal = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  font-size: 14px;
-  color: #c3c9d1;
+  font-size: 16px;
+  color: #636872;
 `;
 
 const PlusIcon = styled(HiPlus)`
@@ -210,8 +280,8 @@ const PlusIcon = styled(HiPlus)`
 `;
 
 const UserNameArea = styled.div`
-  color: #666e78;
-  font-size: 12px;
+  color: #636872;
+  font-size: 14px;
   font-weight: bold;
 `;
 const Title = styled.div`
@@ -220,12 +290,19 @@ const Title = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: #666e78;
-  font-size: 24px;
+  color: #000;
+  font-size: 32px;
+  font-family: Noto Sans KR;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+letter-spacing: -0.003em;
+text-align: left;
+
 
   .GoalNumber {
     margin-bottom: 2px;
-    color: #666e78;
     font-weight: bold;
   }
 `;

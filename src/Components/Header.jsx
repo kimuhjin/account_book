@@ -32,10 +32,11 @@ const HeaderArea = styled.div`
     props.location === "/account_book/" ||
     props.location === "/account_book"
       ? "transparent"
-      : "#d3d3d3"};
+      : "#fff"};
+      //"#d3d3d3"
   font-size: 11px;
   font-weight: bold;
-  color: #fff;
+  color: #000;
   background-size: 100% 40px;
   background-position: center;
   background-repeat: no-repeat;

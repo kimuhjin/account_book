@@ -4,6 +4,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
 import { Link, useHistory } from "react-router-dom";
 import EditIcon from "../Icons/EditIcon.png";
+import AppHeader from "../Components/AppHeader";
 function GoalDetail({ match }) {
   const Id = match.params.Id.split(":")[1];
   const getGoalData = JSON.parse(window.localStorage.getItem("GoalData"));
@@ -13,39 +14,34 @@ function GoalDetail({ match }) {
       return (
         <Fragment key={index}>
           <Container>
-            <MainArea>
-              <Header>
-                <Arrow
-                  onClick={() => {
-                    history.goBack();
-                  }}
-                />
-                <EditBtn to={`/EditGoalDetail/:${v.Id}`} />
-              </Header>
-              <ImageArea imgSrc={v.GoalImageSrc} />
-              <Wage>
-                6,000원
-                <div className="divide">/{v.GoalPrice.toLocaleString()}원</div>
-              </Wage>
-            </MainArea>
-            <ScrollWrapper>
-              <GoalTitleArea>
-                <GTHeader>
-                  {v.GoalTitle}
-                  <div className="category">카테고리</div>
-                </GTHeader>
-                <GTBody>
-                  <div className="top">
-                    일주일에 &nbsp;
-                    <div className="money">
+          <Fragment key={index}>
+          <AccountBox to={`/GoalDetail/:${v.Id}`}>
+          <AccountTitle>{v.GoalTitle}
+          <div className="category">{v.GoalTitle}</div>
+          </AccountTitle>
+            <Account src={v.GoalImageSrc}>
+                <AccountBalance>
+                  100,000원 <div className="goal">/&nbsp;{v.GoalPrice.toLocaleString()}원</div>
+                </AccountBalance>
+            </Account>
+            <AccountBar>
+            <BaseBar></BaseBar>
+                  <CalcAccountBar
+                  BarGauge={Math.round((100000 / v.GoalPrice) * 100)}
+                  ><BarPercent BarGauge={Math.round((100000 / v.GoalPrice) * 100)}>{Math.round((100000 / v.GoalPrice) * 100)}%</BarPercent>
+                  </CalcAccountBar>
+                </AccountBar>
+            </AccountBox>
+          </Fragment>
+          <GoalTitleArea>
+                <GTBody>일주일에
+                &nbsp;
+                <div className="detail">
                       {Math.round((v.GoalPrice - 6000) / (v.GoalDate / 7))}원
                     </div>
-                    을 아끼면
-                  </div>
-                  <div className="bottom">
-                    <div className="day">{v.GoalDate}일&nbsp;</div> 내로
+                  을 아끼면&nbsp;
+                    <div className="detail">{v.GoalDate}일&nbsp;</div> 내로
                     목표달성!
-                  </div>
                 </GTBody>
               </GoalTitleArea>
               <Tab>
@@ -53,22 +49,152 @@ function GoalDetail({ match }) {
                   최신순 <BiChevronDown size={16} />
                 </Filter>
               </Tab>
+            
               <UsedArea>
                 <UsedBox />
                 <UsedBox />
                 <UsedBox />
                 <UsedBox />
+                <UsedBox />
+                <UsedBox />
               </UsedArea>
-            </ScrollWrapper>
+            
           </Container>
         </Fragment>
       );
     }
   });
-  return <Fragment>{RenderGoalDetail}</Fragment>;
+  return <Fragment>
+  <AppHeader TitleText={""} />
+  {RenderGoalDetail}</Fragment>;
 }
 
 export default GoalDetail;
+const BaseBar = styled.div`
+position: relative;
+  top: 30%;
+  left: 0;
+  z-index: 8;
+  width: 100%;
+  height: 8px;
+  border-radius:4px;
+  box-sizing:border-box;
+  background-color: #F1F4F9;
+`
+const CalcAccountBar = styled.div`
+  position: relative;
+  /* top: 30%; */
+  left: 0;
+  z-index: 10;
+  width: ${(props) => props.BarGauge >=100 ? '100%' : `${props.BarGauge}%`};
+  height: 8px;
+  border-radius:4px;
+  box-sizing:border-box;
+  background-color: rgb(6, 190, 182);
+`;
+
+const AccountBar = styled.div`
+  position: relative;
+  margin-top: 15px;
+  width: 100%;
+  height: 26px;
+  border-radius:4px;
+  background-color: transparent;
+`;
+const AccountBalance = styled.div`
+  margin-top: 15px;
+  display: flex;
+  text-decoration:none;
+  flex-direction:column;
+  justify-content: center;
+  align-items: flex-start;
+  padding:0px 16px;
+  box-sizing:border-box;
+  width: 100%;
+  height:108px;
+  font-size: 32px;
+  font-weight:700;
+line-height: 28px;
+letter-spacing: -0.02em;
+ background-color:#fff;
+  opacity:0.9;
+  color: #212829;
+  .goal{
+    font-weight:400;
+    color: #212829;
+    font-size: 16px;
+  }
+`;
+const AccountTitle = styled.div`
+  margin: 15px 0px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .category{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+    margin-left:10px;
+    font-size:12px;
+    font-weight:bold;
+    min-width:39px;
+    height:26px;
+    border-radius:13px;
+    background-color:#F1F4F9;
+    padding:3px 5px;
+    box-sizing:border-box;
+  }
+`;
+
+
+const Account = styled.div`
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:flex-end;
+  background-color: #f1f4f9;
+  min-height: 230px;
+  width: 100%;
+  margin-right: 16px;
+  /* padding: 12px 16px; */
+  box-sizing: border-box;
+  border-radius: 14px;
+  background-image:url(${props=>`data:image/png;base64,${props.src}`});
+background-position:center;
+background-repeat:no-repeat;
+background-size:100%auto;
+`;
+const BarPercent = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+position:absolute;
+z-index:15;
+bottom:-10px;
+right:${props=>props.BarGauge>=100 ? "0px" :'-21px' };
+font-size:12px;
+color:#fff;
+height: 26px;
+width: 42px;
+border-radius:13px;
+background-color:#000;
+`
+const AccountBox = styled(Link)`
+padding:0px 16px;
+box-sizing: border-box;
+text-decoration:none;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:flex-start;
+align-items:flex-start;
+
+`
 const ImageArea = styled.div`
   margin-top: 20px;
   display: flex;
@@ -79,7 +205,7 @@ const ImageArea = styled.div`
   width: 100px;
   height: 100px;
   background-color: #f1f4f9;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   background-image: url(${(props) => `data:image/png;base64,${props.imgSrc}`});
   background-size: 180px 180px;
   background-position: center;
@@ -100,17 +226,22 @@ const ScrollWrapper = styled.div`
 `;
 
 const UsedArea = styled.div`
-  width: 100%;
-  /* height: 72px; */
+ width: 100%;
+  height: 212px;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 const UsedBox = styled.div`
   width: 100%;
   padding: 16px;
-  height: 50px;
+  min-height: 50px;
   box-sizing: border-box;
   border-bottom: 1px solid #c3c9d1;
 `;
@@ -122,7 +253,7 @@ const Filter = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 11px;
-  color: #abb2bb;
+  color: #636872;
 `;
 
 const Tab = styled.div`
@@ -131,70 +262,31 @@ const Tab = styled.div`
   align-items: center;
   padding: 0px 16px;
   box-sizing: border-box;
-  margin-top: 35px;
+  margin-top: 20px;
   width: 100%;
-  min-height: 25px;
+  min-height: 32px;
   background-color: #f1f4f9;
 `;
 
 const GTBody = styled.div`
+padding:0px 16px;
+box-sizing: border-box;
   width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin-top: 10px;
   color: #666e78;
-  font-size: 20px;
-  .top {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-  }
-  .bottom {
-    margin-top: 5px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-  }
-  .money {
-    font-weight: bold;
-    font-size: 20px;
-  }
-  .day {
-    font-weight: bold;
-    font-size: 20px;
+  font-size: 16px;
+  .detail {
+   color:#06BEB6;
   }
 `;
 
-const GTHeader = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 12px;
-  font-weight: bold;
-  color: #666e78;
-  width: 100%;
-  .category {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-    padding: 3px 6px;
-    font-size: 6px;
-    border-radius: 13px;
-    background-color: #f1f4f9;
-    color: #666e78;
-    box-sizing: border-box;
-  }
-`;
 
 const GoalTitleArea = styled.div`
   width: 100%;
-  height: 80px;
-  padding: 16px;
+  /* height: 80px; */
   box-sizing: border-box;
 `;
 
@@ -259,8 +351,7 @@ const MainArea = styled.div`
 `;
 
 const Container = styled.div`
-  position: absolute;
-  /* margin-top: 15px; */
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

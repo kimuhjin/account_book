@@ -35,7 +35,7 @@ const Container = styled.div`
   align-items: flex-start;
   position: absolute;
   top: 100px;
-  left: 200px;
+  right: 50px;
   width: 200px;
   height: 300px;
   border: 1px solid #f2f2f2;

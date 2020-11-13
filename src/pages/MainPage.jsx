@@ -13,23 +13,21 @@ function MainPage() {
   const RenderGoal = getGoalData.map((v, index) => {
     return (
       <Fragment key={index}>
-        <Account>
-          <MoreButton to={`/EditGoalDetail/:${v.Id}`}>
-            <MoreButtonIcon />
-          </MoreButton>
-          <ClickableArea to={`/GoalDetail/:${v.Id}`}>
-            <AccountTitle>{v.GoalTitle}</AccountTitle>
-            <AccountDday>D-{v.GoalDate}</AccountDday>
-            <AccountBar>
-              <CalcAccountBar
-                BarGauge={Math.round((100000 / v.GoalPrice) * 100)}
-              ></CalcAccountBar>
-            </AccountBar>
+      <AccountBox to={`/GoalDetail/:${v.Id}`}>
+      <AccountTitle>{v.GoalTitle}</AccountTitle>
+        <Account src={v.GoalImageSrc}>
             <AccountBalance>
-              100,000 &nbsp;&nbsp;/&nbsp;&nbsp; {v.GoalPrice.toLocaleString()}
+              100,000원 <div className="goal">/&nbsp;{v.GoalPrice.toLocaleString()}원</div>
             </AccountBalance>
-          </ClickableArea>
         </Account>
+        <AccountBar>
+        <BaseBar></BaseBar>
+              <CalcAccountBar
+              BarGauge={Math.round((100000 / v.GoalPrice) * 100)}
+              ><BarPercent BarGauge={Math.round((100000 / v.GoalPrice) * 100)}>{Math.round((100000 / v.GoalPrice) * 100)}%</BarPercent>
+              </CalcAccountBar>
+            </AccountBar>
+        </AccountBox>
       </Fragment>
     );
   });
@@ -56,14 +54,39 @@ function MainPage() {
             </AccountContainer>
           </AccountArea>
         </InfoArea>
-        <UsedReport />
-        <UnexpectedUsed />
+        {/*<UsedReport />*/}
+        {/*<UnexpectedUsed />*/}
       </Container>
     </Fragment>
   );
 }
 
 export default MainPage;
+const BarPercent = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+position:absolute;
+z-index:15;
+bottom:-10px;
+right:${props=>props.BarGauge>=100 ? "0px" :'-21px' };
+font-size:12px;
+color:#fff;
+height: 26px;
+width: 42px;
+border-radius:13px;
+background-color:#000;
+`
+const AccountBox = styled(Link)`
+text-decoration:none;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:flex-start;
+align-items:flex-start;
+
+`
 const AllButtonArea = styled.div`
   padding: 0px 16px;
   box-sizing: border-box;
@@ -80,81 +103,98 @@ const TempMarginArea = styled.div`
   box-sizing: border-box;
 `;
 
-const ClickableArea = styled(Link)`
-  text-decoration: none;
-`;
-
+const BaseBar = styled.div`
+position: relative;
+  top: 30%;
+  left: 0;
+  z-index: 8;
+  width: 100%;
+  height: 8px;
+  border-radius:4px;
+  box-sizing:border-box;
+  background-color: #F1F4F9;
+`
 const CalcAccountBar = styled.div`
-  position: absolute;
-  top: 0;
+  position: relative;
+  /* top: 30%; */
   left: 0;
   z-index: 10;
-  width: ${(props) => `${props.BarGauge}%`};
-  height: 12px;
+  width: ${(props) => props.BarGauge >=100 ? '100%' : `${props.BarGauge}%`};
+  height: 8px;
+  border-radius:4px;
+  box-sizing:border-box;
   background-color: rgb(6, 190, 182);
 `;
 
 const AccountBar = styled.div`
   position: relative;
-  margin-top: 5px;
+  margin-top: 15px;
   width: 100%;
-  height: 12px;
-  background-color: #fff;
+  height: 26px;
+  border-radius:4px;
+  background-color: transparent;
 `;
 const AccountBalance = styled.div`
   margin-top: 15px;
-  width: 100%;
-  font-size: 18px;
-  color: #666e78;
   display: flex;
+  text-decoration:none;
+  flex-direction:column;
   justify-content: center;
-  align-items: center;
-`;
-const MoreButtonIcon = styled(BsThreeDots)`
-  color: #666e78;
-  width: 20px;
-  height: 20px;
-`;
-const MoreButton = styled(Link)`
-  cursor: pointer;
-  text-decoration: none;
+  align-items: flex-start;
+  padding:0px 16px;
+  box-sizing:border-box;
   width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  height:108px;
+  font-size: 32px;
+  font-weight:700;
+  
+line-height: 28px;
+letter-spacing: -0.02em;
+
+
+
+  background-color:#fff;
+  opacity:0.9;
+  color: #212829;
+  .goal{
+    font-weight:400;
+    color: #212829;
+    font-size: 16px;
+  }
 `;
+
 const AccountTitle = styled.div`
-  margin-top: 15px;
-  font-size: 18px;
+  margin: 15px 0px;
+  font-size: 24px;
   font-weight: bold;
-  color: #666e78;
+  color: #000;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const AccountDday = styled.div`
-  margin-top: 15px;
-  width: 100%;
-  font-size: 11px;
-  color: #666e78;
-  display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
 `;
 
+
 const Account = styled.div`
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:flex-end;
   background-color: #f1f4f9;
-  min-height: 180px;
-  min-width: 240px;
+  min-height: 230px;
+  width: 100%;
   margin-right: 16px;
-  padding: 12px 16px;
+  /* padding: 12px 16px; */
   box-sizing: border-box;
   border-radius: 14px;
+  background-image:url(${props=>`data:image/png;base64,${props.src}`});
+background-position:center;
+background-repeat:no-repeat;
+background-size:100%auto;
 `;
 
 const AccountContainer = styled.div`
-  margin-top: 10px;
+  /* margin-top: 10px; */
   padding: 0px 16px;
   box-sizing: border-box;
   overflow: scroll;
@@ -170,8 +210,8 @@ const AccountContainer = styled.div`
 const AllButton = styled(Link)`
   text-decoration: none;
   box-sizing: border-box;
-  font-size: 12px;
-  color: #fff;
+  font-size: 16px;
+  color: #666E78;
 `;
 
 const AccountArea = styled.div`
@@ -183,13 +223,13 @@ const AccountArea = styled.div`
   align-items: center;
 `;
 const UserNameArea = styled.div`
-  font-size: 25px;
+  font-size: 32px;
   font-weight: bold;
-  color: #fff;
+  color: #212829;
   .disc {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: normal;
-    color: #fff;
+    color: #636972;
   }
 `;
 const UserIconArea = styled.div`
@@ -220,13 +260,13 @@ const InfoArea = styled.div`
   width: 100%;
   height: 400px;
   box-sizing: border-box;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     180deg,
     rgb(6, 190, 182),
     rgb(6, 190, 182),
     rgb(6, 190, 182),
     rgb(255, 255, 255)
-  );
+  ); */
 `;
 
 const Container = styled.div`
@@ -236,7 +276,6 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-
-  /* height: 100%; */
+  height: 100%;
   box-sizing: border-box;
 `;
